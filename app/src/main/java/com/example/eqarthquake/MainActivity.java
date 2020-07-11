@@ -1,8 +1,15 @@
 package com.example.eqarthquake;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -15,21 +22,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG , "onCreate: Started. ");
-        ListView mListView = (ListView) findViewById(R.id.listView);
+        ListView earthquakeListView = (ListView) findViewById(R.id.listView);
         // Array List for City
-        ArrayList<attributesOfEarthquake> earthquakes = new ArrayList<attributesOfEarthquake>();
-        earthquakes.add(new attributesOfEarthquake("7.2" , "Feb 2,2016","San Francusco"));
-        earthquakes.add(new attributesOfEarthquake("6.1" , "July 20,2015" , "London"));
-        earthquakes.add(new attributesOfEarthquake("3.9" , "Nov 10,2014" , "Tokyo"));
-        earthquakes.add(new attributesOfEarthquake("5.4" , "May 3,2014" ,"Mexico City"));
-        earthquakes.add(new attributesOfEarthquake("2.8" , "Jan 31,2013" , "Moscow"));
-        earthquakes.add(new attributesOfEarthquake("4.9" , "Aug 19,2012" , "Rio de Janeiro"));
-        earthquakes.add(new attributesOfEarthquake("1.6" , "Oct 30,2011" , "Paris"));
+        ArrayList<attributesOfEarthquake> earthquake = QueryUtils.extractEarthquakes();
 
-        attributeAdapter adapter = new attributeAdapter(this ,R.layout.adapter_view ,earthquakes);
+        final attributeAdapter adapter = new attributeAdapter(this ,earthquake);
+
         Log.d("this", "first");
         //the problem is here in listView definition
-        mListView.setAdapter(adapter);
+        earthquakeListView.setAdapter(adapter);
         Log.d("this" , "second log ");
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Find the current earthquake that was clicked on
+                attributesOfEarthquake currentEarthquake = adapter.getItem(position);
+                Uri earthquakeUri = Uri.parse(currentEarthquake.getUri());
+
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW , earthquakeUri);
+
+                startActivity(websiteIntent);
+
+            }
+        });
+
     }
 }

@@ -1,34 +1,37 @@
 package com.example.eqarthquake;
 
+import android.net.Uri;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class attributesOfEarthquake {
-        private String mag;
-        private String date;
+        private double mag;
         private String place;
-        public attributesOfEarthquake(String numOfMag , String mdate , String mplace){
+        private long timeInMilliseconds ;
+        private String mUrl;
+        Date dateObject = new Date(timeInMilliseconds);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM DD, yyyy");
+        String dateToDisplay = dateFormatter.format(dateObject);
+        public attributesOfEarthquake(double numOfMag , String mplace , long mtimeInMilliseconds , String Url){
+        timeInMilliseconds = mtimeInMilliseconds ;
+        mUrl = Url;
         mag = numOfMag;
-        date = mdate;
         place = mplace;
         }
 
-        public String getMag()
-        {
-        return mag;
+        public double getMag() {
+                return mag;
         }
-        public void setMag(String mag){
-        this.mag = mag;
-        }
-        public String getDate()
-        {
-            return date;
-        }
-        public void setDate(String date){
-            this.date = date;
-        }
+
         public String getPlace(){
             return place;
         }
-        public void setPlace(String place){
-            this.place = place;
+        public long getTimeInMilliseconds(){
+                return timeInMilliseconds;
+        }
+        public String getUri(){
+                return mUrl;
         }
 
-        }
+}
