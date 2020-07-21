@@ -1,12 +1,10 @@
 package com.example.eqarthquake;
 
-import android.net.Uri;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class attributesOfEarthquake {
-        private double mag;
+        double mag;
         private String place;
         private long timeInMilliseconds ;
         private String mUrl;

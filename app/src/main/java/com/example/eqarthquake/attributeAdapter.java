@@ -26,21 +26,8 @@ public class attributeAdapter extends ArrayAdapter<attributesOfEarthquake>  {
     private  int lastPosition = -1;
     private static final String LOCATION_SEPARATOR = " of ";
 
-
-    /**
-     * Holds variables in a View
-     */
-    private static class ViewHolder {
-        TextView place ;
-        TextView date ;
-        TextView mag ;
-    }
-
     /**
      * Default constructor for the attributesEarthquakeAdapter
-     * @param context
-
-     * @param objects
      */
     public attributeAdapter(Context context, List<attributesOfEarthquake> objects) {
         super(context,0 ,objects);
@@ -58,6 +45,7 @@ public class attributeAdapter extends ArrayAdapter<attributesOfEarthquake>  {
 
         }
         attributesOfEarthquake currentEarthquake = getItem(position);
+
 
         // Find the TextView with view ID magnitude
         TextView magnitudeView = (TextView) listItemView.findViewById(R.id.magnitude);
